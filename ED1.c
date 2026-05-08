@@ -2,6 +2,7 @@
 //
 // ARQUIVO:   ED1.c
 // TÍTULO:    Estudo Dirigido - Filtragem, FSM e PWM Integrados
+// ALUNO:     Bernardo Silveira Freitas
 //
 //#############################################################################
 
@@ -13,18 +14,18 @@
 
 // --- Definições do Sistema ---
 #define BUFFER_SIZE     16
-#define PWM_PERIOD      1000   // Resolução do Soft-PWM (0 a 1000)
-#define LED_LIGADO      0      // Lógica Invertida 
+#define PWM_PERIOD      1000   // Resolução do PWM (0 a 1000)
+#define LED_LIGADO      0      
 #define LED_APAGADO     1
 
 // --- Variáveis Globais ---
 volatile uint16_t adc_raw = 0;
 volatile uint16_t adc_filtered = 0;
-volatile int16_t  sinal_ac = 0;           // Sinal centralizado em zero para a FSM
+volatile int16_t  sinal_ac = 0;           
 volatile bool g_enableModulation = false; // Flag controlada via Debug
 
 
-// NOVAS VARIÁVEIS PARA A WATCH WINDOW:
+//VARIÁVEIS PARA A WATCH WINDOW ---
 typedef enum { ESTADO_IDLE = 0, ESTADO_POSITIVE = 1, ESTADO_NEGATIVE = 2 } FSM_State;
 volatile FSM_State g_estado_atual = ESTADO_IDLE;
 volatile uint16_t g_duty_gpio31 = 0;
@@ -72,7 +73,7 @@ void main(void)
         // ---------------------------------------------------------
         // A. SIMULADOR DO SINAL (ADC + Ruído)
         // ---------------------------------------------------------
-        // Incrementa o ângulo lentamente para o efeito visual dos LEDs ser perceptível (~1 seg por ciclo)
+        // Incrementa o ângulo lentamente para o efeito visual dos LEDs ser perceptível
         theta += 0.000005f; 
         if(theta >= 6.283185f) {
             theta = 0.0f;
@@ -101,8 +102,8 @@ void main(void)
         // Centraliza o sinal para análise da FSM (-1000 a +1000)
         sinal_ac = (int16_t)adc_filtered - 2048;
 
-       // ---------------------------------------------------------
-        // C. MÁQUINA DE ESTADOS (FSM) E CÁLCULO DO PWM
+        // ---------------------------------------------------------
+        // C. MÁQUINA DE ESTADOS (FSM) 
         // ---------------------------------------------------------
         if (g_enableModulation == false)
         {
@@ -127,7 +128,7 @@ void main(void)
         }
 
         // ---------------------------------------------------------
-        // D. PWM POR SOFTWARE
+        // D. PWM 
         // ---------------------------------------------------------
         pwm_counter++;
         if(pwm_counter >= PWM_PERIOD) {
