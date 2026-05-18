@@ -72,7 +72,7 @@ void main(void)
         // ---------------------------------------------------------
         // A. SIMULADOR DO SINAL (ADC + Ruído)
         // ---------------------------------------------------------
-        // Incrementa o ângulo lentamente para o efeito visual dos LEDs ser perceptível (~1 seg por ciclo)
+        // Incrementa o ângulo lentamente para o efeito visual dos LEDs ser perceptível
         theta += 0.000005f; 
         if(theta >= 6.283185f) {
             theta = 0.0f;
@@ -85,7 +85,7 @@ void main(void)
         adc_raw = (uint16_t)(2048 + (1000.0f * sinf(theta)) + noise);
 
         // ---------------------------------------------------------
-        // B. FILTRO DE MÉDIA MÓVEL (Circular)
+        // B. FILTRO DE MÉDIA MÓVEL
         // ---------------------------------------------------------
         buffer_sum -= buffer[buffer_index];     // Remove a amostra mais velha
         buffer[buffer_index] = adc_raw;         // Insere a nova amostra
@@ -127,7 +127,7 @@ void main(void)
         }
 
         // ---------------------------------------------------------
-        // D. PWM POR SOFTWARE
+        // D. PWM
         // ---------------------------------------------------------
         pwm_counter++;
         if(pwm_counter >= PWM_PERIOD) {
