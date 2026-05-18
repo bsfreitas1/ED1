@@ -29,6 +29,20 @@
           "C28xx_CPU1"
         ]
       }
+    },
+    {
+      "name": "ED1",
+      "type": "ccs-debug",
+      "request": "launch",
+      "projectInfo": {
+        "name": "ED1",
+        "resourceId": "/ED1"
+      },
+      "launchSettings": {
+        "coresToLoadForProjectLaunch": [
+          "C28xx_CPU1"
+        ]
+      }
     }
   ]
 }
